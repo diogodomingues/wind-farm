@@ -9,16 +9,16 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{route('component.edit', $result->id)}}" method="post">
+                    <form action="{{route('component.update', $result->id)}}" method="post">
                         @method('put')
                         @csrf
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" value="{{$result->name}}" required>
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{$result->name}}" required>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" name="description" rows="3">{{$result->description}}</textarea>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{$result->description}}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="level_damage" class="form-label">Lv. Damage</label>

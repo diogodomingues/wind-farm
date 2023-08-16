@@ -51,6 +51,9 @@ class ComponentController extends BaseController
         return view('turbine.components.edit', ['result' => $result, 'turbines' => $turbines]);
     }
 
+    /**
+     * Show view to create new Components with required data
+     */
     public function new(Request $request)
     {
         $result = $this->turbineService->show([]);

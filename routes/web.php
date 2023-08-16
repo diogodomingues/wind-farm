@@ -41,15 +41,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('turbine/{id}', [TurbineController::class, 'delete'])->name('turbine.delete');
 
     Route::get('components', [ComponentController::class, 'show'])->name('component.get');
-    Route::get('component/{id}', [ComponentController::class, 'edit'])->name('components.edit');
+    Route::get('component/{id}', [ComponentController::class, 'edit'])->name('component.edit');
     Route::get('components/new', [ComponentController::class, 'new'])->name('component.new');
     Route::post('components', [ComponentController::class, 'create'])->name('component.create');
-    Route::put('component/{id}', [ComponentController::class, 'update'])->name('component.edit');
+    Route::put('component/{id}', [ComponentController::class, 'update'])->name('component.update');
     Route::delete('component/{id}', [ComponentController::class, 'delete'])->name('component.delete');
 
     Route::get('inspections', [InspectionController::class, 'show'])->name('inspection.get');
+    Route::get('inspection/{id}', [InspectionController::class, 'edit'])->name('inspection.edit');
+    Route::get('inspections/new', [InspectionController::class, 'new'])->name('inspection.new');
     Route::post('inspections', [InspectionController::class, 'create'])->name('inspection.create');
-    Route::put('inspection/{id}', [InspectionController::class, 'edit'])->name('inspection.edit');
+    Route::put('inspection/{id}', [InspectionController::class, 'update'])->name('inspection.update');
     Route::delete('inspection/{id}', [InspectionController::class, 'delete'])->name('inspection.delete');
 });
 
