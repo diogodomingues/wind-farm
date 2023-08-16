@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Component extends Model
 {
+    const LEVEL_DAMAGE = [
+        1 => 'Perfect',
+        2 => 'Very Good',
+        3 => 'Good',
+        4 => 'Bad',
+        5 => 'Broken/Missing'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
