@@ -6,9 +6,14 @@ use App\Models\Turbine;
 
 class TurbineRepository
 {
-    public function all(int $per_page, int $page)
+    public function all(int $per_page)
     {
-        return Turbine::paginate($per_page, $page);
+        return Turbine::paginate($per_page);
+    }
+
+    public function getById(int $id): ?Turbine
+    {
+        return Turbine::find($id);
     }
 
     public function create(array $params): Turbine

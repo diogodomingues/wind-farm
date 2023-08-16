@@ -11,10 +11,16 @@ class InspectionRepository
         return Inspection::paginate($per_page, $page);
     }
 
-    public function create(array $params): Turbine
+    public function create(array $params): Inspection
     {
         return Inspection::create($params);
     }
+
+    public function getById(int $id): ?Inspection
+    {
+        return Inspection::find($id);
+    }
+
 
     public function update(int $id, array $params): ?bool
     {

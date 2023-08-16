@@ -24,7 +24,6 @@ class TurbineController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'per_page' => 'int',
-            'page' => 'int',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +32,17 @@ class TurbineController extends BaseController
 
         $result = $this->turbineService->show($request->all());
 
-        return view('turbine.show', $result);
+        return view('turbine.show', ['result' => $result]);
+    }
+
+    /**
+     * List all details of a Turbine
+     */
+    public function edit(Request $request, $id)
+    {   
+        $result = $this->turbineService->edit($id);
+
+        return view('turbine.edit', ['result' => $result]);
     }
 
     /**
@@ -44,7 +53,7 @@ class TurbineController extends BaseController
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'location' => 'string',
-            'size' => 'integer'
+            'size' => 'integer|nullable'
         ]);
 
         if ($validator->fails()) {
@@ -57,44 +66,44 @@ class TurbineController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.show', $this->turbineService->show([]));
+        return redirect()->route('turbine.get');
     }
 
     /**
      * Update Turbine details
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'location' => 'string',
-            'size' => 'integer'
+            'size' => 'integer|nullable'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['response' => $validator->errors()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $result = $this->turbineService->edit($id, $request->all());
+        $result = $this->turbineService->update($id, $request->all());
 
         if (!$result) {
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.show', $this->turbineService->show([]));
+        return redirect()->route('turbine.get');
     }
 
     /**
      * Delete turbine
      */
     public function delete(Request $request, $id)
-    {
+    {        
         $result = $this->turbineService->delete($id);
 
         if (!$result) {
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.show', $this->turbineService->show([]));
+        return redirect()->route('turbine.get');
     }
 }

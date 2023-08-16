@@ -30,12 +30,17 @@ class InspectionService
         return $result;
     }
 
+    public function edit(int $id)
+    {
+        return  $this->inspectionRepository->getById($id);
+    }
+
     public function create(array $params)
     {
         return  $this->inspectionRepository->create($params);
     }
 
-    public function edit(int $id, array $params)
+    public function update(int $id, array $params)
     {
         return  $this->inspectionRepository->update($id, $params);
     }

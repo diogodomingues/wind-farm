@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use App\Services\ComponentService;
+use App\Services\TurbineService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -12,9 +13,12 @@ class ComponentController extends BaseController
 {
     private ComponentService $componentService;
 
-    public function __construct(ComponentService $componentService)
+    private TurbineService $turbineService;
+
+    public function __construct(ComponentService $componentService, TurbineService $turbineService)
     {
         $this->componentService = $componentService;
+        $this->turbineService = $turbineService;
     }
 
     /**
@@ -24,7 +28,6 @@ class ComponentController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'per_page' => 'int',
-            'page' => 'int',
         ]);
 
         if ($validator->fails()) {
@@ -33,7 +36,26 @@ class ComponentController extends BaseController
 
         $result = $this->componentService->show($request->all());
 
-        return view('turbine.components.show', $result);
+        return view('turbine.components.show', ['result' => $result]);
+    }
+
+    /**
+     * List all details of a Components
+     */
+    public function edit(Request $request, $id)
+    {
+        $result = $this->componentService->edit($id);
+
+        $turbines = $this->turbineService->show([]);
+
+        return view('turbine.components.edit', ['result' => $result, 'turbines' => $turbines]);
+    }
+
+    public function new(Request $request)
+    {
+        $result = $this->turbineService->show([]);
+
+        return view('turbine.components.new', ['result' => $result]);
     }
 
     /**
@@ -43,8 +65,9 @@ class ComponentController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'location' => 'string',
-            'size' => 'integer'
+            'description' => 'string|nullable',
+            'level_damage' => 'required|integer',
+            'turbine_id' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
@@ -57,31 +80,32 @@ class ComponentController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.components.show', $this->componentService->show([]));
+        return redirect()->route('component.get');
     }
 
     /**
      * Update Component details
      */
-    public function edit(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'location' => 'string',
-            'size' => 'integer'
+            'description' => 'string|nullable',
+            'level_damage' => 'required|integer',
+            'turbine_id' => 'required|integer'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['response' => $validator->errors()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $result = $this->componentService->edit($id, $request->all());
+        $result = $this->componentService->update($id, $request->all());
 
         if (!$result) {
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.components.show', $this->componentService->show([]));
+        return redirect()->route('component.get');
     }
 
     /**
@@ -95,6 +119,6 @@ class ComponentController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return view('turbine.components.show', $this->componentService->show([]));
+        return redirect()->route('component.get');
     }
 }

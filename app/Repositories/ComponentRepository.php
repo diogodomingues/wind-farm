@@ -6,12 +6,17 @@ use App\Models\Component;
 
 class ComponentRepository
 {
-    public function all(int $per_page, int $page)
+    public function all(int $per_page)
     {
-        return Component::paginate($per_page, $page);
+        return Component::with('turbine')->paginate($per_page);
     }
 
-    public function create(array $params): Turbine
+    public function getById(int $id): ?Component
+    {
+        return Component::find($id);
+    }
+
+    public function create(array $params): Component
     {
         return Component::create($params);
     }
