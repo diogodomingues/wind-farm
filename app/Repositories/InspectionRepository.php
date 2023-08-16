@@ -6,9 +6,9 @@ use App\Models\Inspection;
 
 class InspectionRepository
 {
-    public function all(int $per_page, int $page)
+    public function all(int $per_page)
     {
-        return Inspection::paginate($per_page, $page);
+        return Inspection::with('turbine')->with('user')->paginate($per_page);
     }
 
     public function create(array $params): Inspection

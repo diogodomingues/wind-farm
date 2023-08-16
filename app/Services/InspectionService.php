@@ -19,9 +19,8 @@ class InspectionService
     public function show(array $params)
     {
         $per_page = (!empty($params['per_page'])) ? $params['per_page'] : self::DEFAULT_RECORDS_PER_PAGE;
-        $page = (!empty($params['page'])) ? $params['page'] : self::DEFAULT_RECORDS_PAGE;
 
-        $result = $this->inspectionRepository->all($per_page, $page);
+        $result = $this->inspectionRepository->all($per_page);
 
         if (empty($result)) {
             return [];
@@ -35,8 +34,10 @@ class InspectionService
         return  $this->inspectionRepository->getById($id);
     }
 
-    public function create(array $params)
+    public function create(array $params, int $userId)
     {
+        $params['user_id'] = $userId;
+
         return  $this->inspectionRepository->create($params);
     }
 

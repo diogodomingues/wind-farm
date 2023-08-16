@@ -24,4 +24,12 @@ class Inspection extends Model
     {
         return $this->belongsTo(Turbine::class);
     }
+
+    /**
+     * Relationship with User(inspector)
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
