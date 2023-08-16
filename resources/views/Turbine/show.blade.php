@@ -22,6 +22,7 @@
                                 <th scope="col">Location</th>
                                 <th scope="col">Size</th>
                                 <th scope="col">N. Components</th>
+                                <th scope="col">N. Inspections</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -33,6 +34,7 @@
                                 <td>{{$row->location}}</td>
                                 <td>{{$row->size}}</td>
                                 <td>{{count($row->components)}}</td>
+                                <td>{{count($row->inspections)}}</td>
                                 <td>
                                     <div class="row">
                                         <div class="col-sm-3">

@@ -43,6 +43,6 @@ class User extends Authenticatable
 
     public function inspections()
     {
-        return $this->hasMany(Inspection::class)->where('inspector', '=', true);
+        return $this->hasMany(Inspection::class);
     }
 }
