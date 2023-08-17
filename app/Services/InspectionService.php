@@ -34,6 +34,11 @@ class InspectionService
         return  $this->inspectionRepository->getById($id);
     }
 
+    public function getInspectionsByTurbine(int $id)
+    {
+        return  $this->inspectionRepository->getInspectionsByTurbine($id);
+    }
+
     public function create(array $params, int $userId)
     {
         $params['user_id'] = $userId;

@@ -57,6 +57,17 @@ class ComponentService
         return  $this->componentRepository->getById($id);
     }
 
+    public function getComponentsByTurbine(int $id)
+    {
+        $result =  $this->componentRepository->getComponentsByTurbine($id);
+
+        if (empty($result)) {
+            return [];
+        }
+
+        return $this->formatData($result);
+    }
+
     public function create(array $params)
     {
         return  $this->componentRepository->create($params);

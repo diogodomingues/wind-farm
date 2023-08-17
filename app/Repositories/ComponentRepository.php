@@ -16,6 +16,11 @@ class ComponentRepository
         return Component::find($id);
     }
 
+    public function getComponentsByTurbine(int $id)
+    {
+        return Component::where('turbine_id', $id)->get();
+    }
+
     public function create(array $params): Component
     {
         return Component::create($params);

@@ -21,6 +21,10 @@ class InspectionRepository
         return Inspection::find($id);
     }
 
+    public function getInspectionsByTurbine(int $id)
+    {
+        return Inspection::where('turbine_id', $id)->get();
+    }
 
     public function update(int $id, array $params): ?bool
     {

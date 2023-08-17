@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ComponentService;
+use App\Services\InspectionService;
 use Illuminate\Routing\Controller as BaseController;
 use App\Services\TurbineService;
 use Illuminate\Http\Request;
@@ -12,9 +14,15 @@ class TurbineController extends BaseController
 {
     private TurbineService $turbineService;
 
-    public function __construct(TurbineService $turbineService)
+    private ComponentService $componentService;
+
+    private InspectionService $inspectionService;
+
+    public function __construct(TurbineService $turbineService, ComponentService $componentService, InspectionService $inspectionService)
     {
         $this->turbineService = $turbineService;
+        $this->componentService = $componentService;
+        $this->inspectionService = $inspectionService;
     }
 
     /**
@@ -39,10 +47,14 @@ class TurbineController extends BaseController
      * List all details of a Turbine
      */
     public function edit(Request $request, $id)
-    {   
+    {
         $result = $this->turbineService->edit($id);
 
-        return view('turbine.edit', ['result' => $result]);
+        $components = $this->componentService->getComponentsByTurbine($id);
+
+        $inspections = $this->inspectionService->getInspectionsByTurbine($id);
+
+        return view('turbine.edit', ['result' => $result, 'components' => $components, 'inspections' => $inspections]);
     }
 
     /**
@@ -97,7 +109,7 @@ class TurbineController extends BaseController
      * Delete turbine
      */
     public function delete(Request $request, $id)
-    {        
+    {
         $result = $this->turbineService->delete($id);
 
         if (!$result) {
