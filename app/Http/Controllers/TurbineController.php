@@ -64,7 +64,7 @@ class TurbineController extends BaseController
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'location' => 'string',
+            'location' => 'string|nullable',
             'size' => 'integer|nullable'
         ]);
 
@@ -78,7 +78,7 @@ class TurbineController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('turbine.get');
+        return redirect()->route('turbine.get')->with('success', 'Turbine created!');
     }
 
     /**
@@ -102,7 +102,7 @@ class TurbineController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('turbine.get');
+        return redirect()->route('turbine.get')->with('success', 'Turbine updated!');
     }
 
     /**
@@ -116,6 +116,6 @@ class TurbineController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('turbine.get');
+        return redirect()->route('turbine.get')->with('success', 'Turbine deleted!');
     }
 }

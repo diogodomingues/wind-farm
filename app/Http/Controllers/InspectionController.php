@@ -82,7 +82,7 @@ class InspectionController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('inspection.get');
+        return redirect()->route('inspection.get')->with('success', 'Inspection created!');
     }
 
     /**
@@ -105,7 +105,7 @@ class InspectionController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('inspection.get');
+        return redirect()->route('inspection.get')->with('success', 'Inspection updated!');
     }
 
     /**
@@ -119,6 +119,6 @@ class InspectionController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('inspection.get');
+        return redirect()->route('inspection.get')->with('success', 'Inspection deleted!');
     }
 }

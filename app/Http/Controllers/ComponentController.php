@@ -83,7 +83,7 @@ class ComponentController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('component.get');
+        return redirect()->route('component.get')->with('success', 'Component created!');
     }
 
     /**
@@ -108,7 +108,7 @@ class ComponentController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('component.get');
+        return redirect()->route('component.get')->with('success', 'Component updated!');
     }
 
     /**
@@ -122,6 +122,6 @@ class ComponentController extends BaseController
             return response()->json($result, Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return redirect()->route('component.get');
+        return redirect()->route('component.get')->with('success', 'Component deleted!');
     }
 }
